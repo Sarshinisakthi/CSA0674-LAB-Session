@@ -1,0 +1,32 @@
+import pandas as pd
+import numpy as np
+
+# Student Placement Dataset
+data = {
+    'CGPA': ['High', 'High', 'Medium', 'High', 'Medium', 'High'],
+    'Communication': ['Good', 'Average', 'Good', 'Good', 'Average', 'Excellent'],
+    'Internship': ['Yes', 'Yes', 'No', 'No', 'Yes', 'Yes'],
+    'Placement': ['Yes', 'Yes', 'No', 'Yes', 'No', 'Yes']
+}
+
+df = pd.DataFrame(data)
+
+print("Register Number : 192321113")
+print("\nTraining Data:")
+print(df)
+
+concepts = np.array(df.iloc[:, :-1])
+target = np.array(df.iloc[:, -1])
+
+# Initialize hypothesis
+hypothesis = concepts[0].copy()
+
+# Find-S Algorithm
+for i in range(len(target)):
+    if target[i] == "Yes":
+        for j in range(len(hypothesis)):
+            if hypothesis[j] != concepts[i][j]:
+                hypothesis[j] = "?"
+
+print("\nFinal Hypothesis:")
+print(hypothesis)
