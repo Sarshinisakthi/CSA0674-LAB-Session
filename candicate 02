@@ -1,0 +1,43 @@
+import pandas as pd
+import numpy as np
+
+# Student Placement Dataset
+data = {
+    'CGPA': ['High', 'High', 'Medium', 'High', 'Medium', 'High'],
+    'Communication': ['Good', 'Average', 'Good', 'Good', 'Average', 'Excellent'],
+    'Internship': ['Yes', 'Yes', 'No', 'No', 'Yes', 'Yes'],
+    'Placement': ['Yes', 'Yes', 'No', 'Yes', 'No', 'Yes']
+}
+
+df = pd.DataFrame(data)
+
+print("Register Number : 192321113")
+print("\nTraining Data:")
+print(df)
+
+concepts = np.array(df.iloc[:, :-1])
+target = np.array(df.iloc[:, -1])
+
+# Initialize Specific Hypothesis
+S = concepts[0].copy()
+
+# Initialize General Hypothesis
+G = [["?" for i in range(len(S))]]
+
+# Candidate Elimination Algorithm
+for i in range(len(target)):
+    if target[i] == "Yes":
+        for j in range(len(S)):
+            if S[j] != concepts[i][j]:
+                S[j] = "?"
+    else:
+        for j in range(len(S)):
+            if S[j] != concepts[i][j]:
+                G.append(["?" if x != j else S[j] for x in range(len(S))])
+
+print("\nSpecific Hypothesis (S):")
+print(S)
+
+print("\nGeneral Hypothesis (G):")
+for g in G:
+    print(g)
